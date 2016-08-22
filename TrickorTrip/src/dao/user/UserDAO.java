@@ -16,7 +16,7 @@ public class UserDAO {
 	public boolean search(UserEntity entity) {
 		boolean result=false;
 		try {
-			String sql="select * from user where u_id=? and u_pw=?";
+			String sql="select * from user1 where u_id=? and u_pw=?";
 			PreparedStatement pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, entity.getUid());
 			pstmt.setString(2, entity.getUpw());

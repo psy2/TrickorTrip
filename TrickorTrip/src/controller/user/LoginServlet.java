@@ -3,11 +3,13 @@ package controller.user;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
@@ -48,9 +50,15 @@ public class LoginServlet extends HttpServlet {
 		entity.setUid(id);
 		entity.setUpw(pw);
 		boolean result=service.login(entity);
+		
+				
+		if(result){
+			HttpSession session=request.getSession(true);
+			
+		}
 		JSONObject obj=new JSONObject();
 		
-			obj.put("result", result);
+		obj.put("result", result);
 		
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
@@ -58,6 +66,7 @@ public class LoginServlet extends HttpServlet {
 
 	      out.flush();
 	      out.close();
+		
 
 	}
 
