@@ -23,6 +23,8 @@ public class WebSocketServer {
 	@OnClose
 	public void closeClient(Session session){
 		System.out.println("클라이언트가 끊어졌어요!!"+session);
+		list.remove(session);
+		System.out.println("size : " + list.size());
 	}
 	@OnMessage
 	public void receiveMSG(String msg,Session session){
