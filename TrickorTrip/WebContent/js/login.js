@@ -1,10 +1,11 @@
 /**
  * Created by 박소윤 on 2016-08-18.
  */
+
 function checkID(){
     $.ajax({
         type:"POST",
-        url:"http://localhost:8080/tot/login",
+        url:"http://10.16.11.205:8080/tot/login",
         dataType:"json",
         data:{
             inputID:$("#inputID").val(),

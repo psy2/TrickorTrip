@@ -6,19 +6,30 @@ import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 //WebSocket server를 이용할 거예요
-@ServerEndpoint("/wsServer")
+@ServerEndpoint("/wsServer/{clientId}")
 
 public class WebSocketServer {
+	private volatile String clientId;
 	private static ArrayList<Session> list=new ArrayList<Session>();
 	//클라이언트가 websocket 프로토콜로 연결에 성공했을 때
 	@OnOpen
-	public void openServer(Session session){
+	public void openServer(@PathParam("clientId") String id,Session session){
 		System.out.println("클라리언트가 접속했어요!!:"+session);
 		list.add(session);
-		//여기서 session은 클라이언트의 socket이라고 생각하면 되요
+		String enter=id+"님이 접속하셨습니다.";
+		try {
+			for(Session s: list){
+				s.getBasicRemote().sendText(enter);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	@OnClose
 	public void closeClient(Session session){

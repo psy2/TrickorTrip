@@ -8,6 +8,10 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <title>TOT 로그인</title>
+    
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
 
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -20,17 +24,17 @@
 
      <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
-
+	<script src="js/login.js"></script>
 </head>
 
 <body>
 
 <div class="container">
 
-    <form class="form-signin">
+    <div class="form-signin">
         <h2 class="form-signin-heading">TOT 로그인</h2>
 
-        <input type="email" id="inputID" class="form-control" placeholder="ID입력" required autofocus name="inputID">
+        <input type="text" id="inputID" class="form-control" placeholder="ID입력" required autofocus name="inputID">
 
         <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호 입력" required name="inputPassword">
         <div class="checkbox">
@@ -39,7 +43,7 @@
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="checkID()">로그인</button>
-    </form>
+    </div>
 
 </div> <!-- /container -->
 

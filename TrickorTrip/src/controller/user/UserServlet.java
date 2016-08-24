@@ -3,7 +3,6 @@ package controller.user;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,20 +12,17 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
-import service.user.UserService;
-import entity.user.UserEntity;
-
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class UserServlet
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/user")
+public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public UserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,31 +31,19 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF8");
-		String id=request.getParameter("inputID");
-		String pw=request.getParameter("inputPassword");
-		UserService service=new UserService();
-		UserEntity entity=new UserEntity();
-		entity.setUid(id);
-		entity.setUpw(pw);
-		boolean result=service.login(entity);
-		
-				
-		if(result){
-			HttpSession session=request.getSession(true);
-			session.setAttribute("USERID",id);
-			//session.setAttribute("FLAG",true);
-		}
+		HttpSession session=request.getSession(true);
+		boolean flag=false;
+		String id;
 		JSONObject obj=new JSONObject();
+		if(session.isNew()){
+			flag=false;
+		}else{
+			flag=true;
+			id=(String) session.getAttribute("USERID");
+			obj.put("id", id);
+		}
 		
-		obj.put("result", result);
+		obj.put("flag",flag);
 		
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
@@ -68,7 +52,13 @@ public class LoginServlet extends HttpServlet {
 	      out.flush();
 	      out.close();
 		
+	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 	}
 
 }
